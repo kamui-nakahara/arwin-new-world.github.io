@@ -1,6 +1,12 @@
 const ce=document.getElementById("my_canvas");
 const cc=ce.getContext("2d");
 const h1=document.getElementById("my_h1");
+const button1=document.getElementById("input1");
+const button2=document.getElementById("input2");
+const button3=document.getElementById("input3");
+const button4=document.getElementById("input4");
+const button5=document.getElementById("input5");
+const button6=document.getElementById("input6");
 var blocks=Object();
 var block=[250,-50];
 var block2=[200,-50];
@@ -11,23 +17,77 @@ var cs=["#0000ff","#00ff00","#00ffff","#ff0000","#ff00ff","#ffff00","#ffffff"];
 var now_color=[cs[random(0,6)],cs[random(0,6)]];
 var flag=0;
 var score=0;
+var size=1;
+function push(button){
+    if (state){
+        button.value="開始";
+        state=false;
+    }else{
+        button.value="停止"
+        state=true;
+        mainloop();
+    }
+}
+function push2(){
+    rotate();
+    put_block();
+}
+function push3(){
+    left();
+    put_block();
+}
+function push4(){
+    right();
+    put_block();
+}
+function push5(){
+    fall();
+    put_block();
+}
+function push6(button){
+    if (button.value=="スマホモードに切り替え"){
+        button.value="パソコンモードに切り替え";
+        size=1.5;
+        ce.width=750;
+        ce.height=900;
+        h1.style.fontSize="45px";
+        input1.style.fontSize="45px";
+        input2.style.fontSize="45px";
+        input3.style.fontSize="45px";
+        input4.style.fontSize="45px";
+        input5.style.fontSize="45px";
+        input6.style.fontSize="45px";
+    }else{
+        button.value="スマホモードに切り替え";
+        size=1;
+        ce.width=500;
+        ce.height=600;
+        h1.style.fontSize="30px";
+        input1.style.fontSize="30px";
+        input2.style.fontSize="30px";
+        input3.style.fontSize="30px";
+        input4.style.fontSize="30px";
+        input5.style.fontSize="30px";
+        input6.style.fontSize="30px";
+    }
+}
 function random(x,y){
     return Math.floor(Math.random()*(y-x)*1.1)+x;
 }
 function put_block(){
     cc.fillStyle="#000000";
-    cc.fillRect(0,0,500,600);
+    cc.fillRect(0,0,500*size,600*size);
     for (var i in blocks){
         n=i.split(",");
         x=Number(n[0]);
         y=Number(n[1]);
         cc.fillStyle=blocks[i];
-        cc.fillRect(x,y,50,50);
+        cc.fillRect(x*size,y*size,50*size,50*size);
     }
     cc.fillStyle=now_color[0];
-    cc.fillRect(block[0],block[1],50,50);
+    cc.fillRect(block[0]*size,block[1]*size,50*size,50*size);
     cc.fillStyle=now_color[1];
-    cc.fillRect(block2[0],block2[1],50,50);
+    cc.fillRect(block2[0]*size,block2[1]*size,50*size,50*size);
 }
 function mainloop(){
     if (state){
@@ -177,27 +237,36 @@ function key_down(e){
     var code=e.keyCode;
     switch (code){
         case 37:
-            left();
-            put_block();
+            if (state){
+                left();
+                put_block();
+            }
             break;
         case 39:
-            right();
-            put_block();
+            if (state){
+                right();
+                put_block();
+            }
             break;
         case 40:
-            fall();
-            put_block();
+            if (state){
+                fall();
+                put_block();
+            }
             break;
         case 38:
-            console.log(0);
-            rotate();
-            put_block();
+            if (state){
+                rotate();
+                put_block();
+            }
             break;
         case 32:
             if (state){
                 state=false;
+                button1.value="開始";
             }else{
                 state=true;
+                button1.value="停止";
                 mainloop();
             }
             break;
