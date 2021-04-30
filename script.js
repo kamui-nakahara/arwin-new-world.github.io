@@ -157,7 +157,7 @@ function mainloop(){
             h1.textContent=t+"  "+"Game Over";
             h1.style.color="red";
         }
-        timer1=setTimeout(mainloop,300);
+        timer1=setTimeout(mainloop,500);
     }
 }
 function left(){
