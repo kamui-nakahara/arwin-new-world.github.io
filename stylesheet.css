@@ -3,7 +3,12 @@ html{
 }
 h1{
     color:#00f;
+    margin:0px;
+    font-size:30px;
 }
 canvas{
     background:#000;
+}
+input{
+    font-size:30px;
 }
